@@ -51,6 +51,10 @@ table {
 box-sizing: border-box;
 }
 
+a{
+	text-decoration: none;
+}
+
 input:focus, textarea:focus, select:focus{
     outline: none;
 }
