@@ -1,6 +1,6 @@
 body{
     font-family: 'Roboto', sans-serif;
-    background-color: #e5e5e5;
+    background-color: #fafafa;
 }
 
 .topo{
@@ -218,12 +218,11 @@ li div{
 
     box-shadow: 0 0 5px rgba(0,0,0,0.25);
 }
-.escondido{
-    display: none;
-}
 
-.titulo-quizz-tela2{
-
+.conteudo-tela2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .topo-tela2{
@@ -265,26 +264,36 @@ li div{
 }
 
 .perguntas-quizz{
+    width: 759px;
     height: 200px;
 
-    padding: 0 376px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.pergunta-quizz{
+    height: 640px;
 
+    padding: 28px 35px 35px 35px;
+    margin: 42px 0 0 0 ;
+
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
 .titulo-quizz-tela2{
+    width:688px;
     height: 138px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    margin: 70px 0 20px 0;
+    margin-bottom: 20px;
 
     background-color: blue;
-
-
 }
 
 .titulo-quizz-tela2 span{
@@ -293,8 +302,41 @@ li div{
     font-family: 'Roboto', sans-serif;
     font-size: 23px;
 
-    padding: 0 5.2vw;
-    
+    padding: 0;
+
+    text-align: center;   
+}
+
+.alternativas-respostas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.alternativa{
+    margin-bottom: 19px;
+}
+
+.alternativa:nth-child(n+3){
+    margin-bottom: 0;
+}
+
+.alternativa img{
+    height: 175px;
+    width: 330px;
+
+    display: block;
+
+    margin-bottom: 8px;
+}
+
+.resposta{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.escondido{
+    display: none;
 }
 
 @media(max-width: 1100px){
@@ -331,17 +373,46 @@ li div{
     }
 
     .titulo-quizzes-tela2{
-        font-size: 19px;
+       font-size: 19px;
     }
 
     .perguntas-quizz{
+        width: 100%;
         height: 89px;
     
-        padding: 0 18px;
+        padding: 0;
+    }
+
+    .pergunta-quizz{
+        width: 375px;
+        display: flex;
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding:18px;
+        margin: 24px 0 0 0;
+
     }
 
     .titulo-quizz-tela2{
-        margin: 42px 0 12px 0;
+        width: 100%;
+        height: 89px;
+    }
+
+    .titulo-quizz-tela2 span{
+        font-size: 19px;
+        padding: 0 4.7%;
+    }
+
+    .alternativa img{
+        height: 113px;
+        width: 163px;
+    }
+
+    .alternativas-respostas{
+        width: 100%;
     }
 
 }
