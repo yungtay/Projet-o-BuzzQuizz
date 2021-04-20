@@ -49,3 +49,9 @@ body{
 .escondido{
     display:none;
 }
+
+@media(max-width: 1100px){
+    .conteudo-tela1{
+        padding: 31px 18px;
+    }
+}
