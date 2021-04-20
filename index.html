@@ -139,41 +139,120 @@
 
     <div class="conteudo-tela3 escondido">
         <div class="comeca-pelo-comeco">
-            <div class="texto"><strong>Comece pelo começo</strong></div>
+            <div class="texto">
+                <strong>
+                    Comece pelo começo
+                </strong>
+            </div>
             <div class="perguntas">
-                <input type="text" name="" placeholder="Título do seu quizz">
-                <input type="text" name="" placeholder="URL da imagem do seu quizz">
-                <input type="text" name="" placeholder="Quantidade de perguntas do seu quizz">
-                <input type="text" name="" placeholder="Quantidade de níveis do quizz">
+                <input type="text" placeholder="Título do seu quizz">
+                <input type="text" placeholder="URL da imagem do seu quizz">
+                <input type="text" placeholder="Quantidade de perguntas do seu quizz">
+                <input type="text" placeholder="Quantidade de níveis do quizz">
             </div>
             <input class="botao-perguntas" type="button" value="Prosseguir pra criar perguntas">
         </div>
+
         <div class="criar-perguntas">
-            <div class="texto"><strong>Crie suas perguntas</strong></div>
+            <div class="texto">
+                <strong>
+                    Crie suas perguntas
+                </strong>
+            </div>
             <div class="pergunta-fechada">
-                <span><strong>Pergunta 1</strong></span>
+                <span>
+                    <strong>
+                        Pergunta 1
+                    </strong>
+                </span>
                 <ion-icon name="create-outline"></ion-icon>
             </div>
             <div class="perguntas">
-                <span class="pergunta-texto"><strong>Pergunta 1</strong></span>
-                <input type="text" name="" placeholder="Texto da pergunta">
-                <input type="text" name="" placeholder="Cor de fundo da pergunta">
-                <span class="pergunta-texto"><strong>Resposta correta</strong></span>
-                <input type="text" name="" placeholder="Resposta correta">
-                <input type="text" name="" placeholder="URL da imagem">
-                <span class="pergunta-texto"><strong>Respostas incorretas</strong></span>
-                <input type="text" name="" placeholder="Respostas incorretas 1">
-                <input type="text" name="" placeholder="URL da imagem 1">
-                <input type="text" name="" placeholder="Respostas incorretas 2">
-                <input type="text" name="" placeholder="URL da imagem 2">
-                <input type="text" name="" placeholder="Respostas incorretas 3">
-                <input type="text" name="" placeholder="URL da imagem 3">
+                <span class="pergunta-texto">
+                    <strong>
+                        Pergunta 1
+                    </strong>
+                </span>
+                <div class="pergunta-criar-quizz">
+                    <input type="text" placeholder="Texto da pergunta">
+                    <input type="text" placeholder="Cor de fundo da pergunta">
+                </div>
+                <span class="pergunta-texto">
+                    <strong>
+                        Resposta correta
+                    </strong>
+                </span>
+                <div class="resposta-criar-quizz">
+                    <input type="text" placeholder="Resposta correta">
+                    <input type="text" placeholder="URL da imagem">
+                </div>
+                <span class="pergunta-texto">
+                    <strong>
+                        Respostas incorretas
+                    </strong>
+                </span>
+                <div class="primeira-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 1">
+                    <input type="text" placeholder="URL da imagem 1">
+                </div>
+                <div class="segunda-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 2">
+                    <input type="text" placeholder="URL da imagem 2">
+                </div>
+                <div class="terceira-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 3">
+                    <input type="text" placeholder="URL da imagem 3">
+                </div>
             </div>
            
             <input class="botao-perguntas" type="button" value="Prosseguir pra criar níveis">
         </div>
-        <div class="escolha-niveis"></div>
-        <div class="quizz-pronto"></div>
+        <div class="escolha-niveis">
+            <div class="texto">
+                <strong>
+                    Agora, decida os níveis
+                </strong>
+            </div>
+            <div class="pergunta-fechada">
+                <span class="pergunta-texto">
+                    <strong>
+                        Nível 1
+                    </strong>
+                </span>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="perguntas">
+                <span class="pergunta-texto">
+                    <strong>
+                        Nível 1
+                    </strong>
+                </span>
+                <div class="resposta-nivel">
+                    <input type="text" placeholder="Título do nível">
+                    <input type="text" placeholder="% de acerto mínima">
+                    <input type="text" placeholder="URL da imagem do nível">
+                    <input type="text" placeholder="Descrição do nível">
+                    <textarea placeholder="Descrição do nível" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            
+            <input class="botao-perguntas" type="button" value="Finalizar quizz">
+        </div>
+        <div class="quizz-pronto">
+            <div class="texto">
+                <strong>
+                    Seu quizz está pronto!
+                </strong>
+            </div>
+            <div class="previa-quizz">
+                <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
+                <div class="titulo-previa-quizz">
+                    Cachorrinhos esperando na frente de uma árvore caindo folhas
+                </div>
+            </div>
+            <input class="botao-finalizado" type="button" value="Acessar Quizz">
+            <input class="botao-voltar-home" type="button" value="Voltar pra home">
+        </div>
     </div>
 
     
