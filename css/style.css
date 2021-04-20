@@ -221,6 +221,81 @@ li div{
     box-shadow: 0 0 5px rgba(0,0,0,0.25);
 }
 
+.titulo-quizz-tela2{
+
+}
+
+.topo-tela2{
+    position: relative;
+    width: 100%;
+    height: 227px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow-y: hidden;
+    margin-top: 69px;
+}
+
+.topo-tela2 img{
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
+
+.titulo-quizzes-tela2{
+    width: 100%;
+    height: 100%;
+
+    padding: 0 33px;
+
+    position: absolute;
+    top: 0;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 39px;
+
+    background: rgba(0,0,0,0.6);
+}
+
+.perguntas-quizz{
+    height: 200px;
+
+    padding: 0 376px;
+
+
+
+}
+
+.titulo-quizz-tela2{
+    height: 138px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 70px 0 20px 0;
+
+    background-color: blue;
+
+
+}
+
+.titulo-quizz-tela2 span{
+    font-weight: 700;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+
+    padding: 0 5.2vw;
+    
+}
+
 @media(max-width: 1100px){
     .conteudo-tela1{
         padding: 31px 0;
@@ -244,6 +319,28 @@ li div{
 
     .seus-quizzes{
         width: 340px;
+    }
+
+    .topo-tela2{
+        height: 142px; 
+    }
+
+    .topo-tela2 img{
+        height: 142px; 
+    }
+
+    .titulo-quizzes-tela2{
+        font-size: 19px;
+    }
+
+    .perguntas-quizz{
+        height: 89px;
+    
+        padding: 0 18px;
+    }
+
+    .titulo-quizz-tela2{
+        margin: 42px 0 12px 0;
     }
 
 }
