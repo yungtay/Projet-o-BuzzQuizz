@@ -28,7 +28,7 @@ body{
 
 .conteudo-tela1{
     margin-top: 69px;   
-    padding: 77px 194px 30px 194px;
+    padding: 77px calc(calc(100vw - 1051px)/2) 30px calc(calc(100vw - 1051px)/2);
 }
 
 .criar-quizzes{
@@ -38,14 +38,33 @@ body{
     border-radius: 5px;
 }
 
-.seus-quizzes{
+.seus-quizzes,.todos-quizzes {
 
 }
 
-.todos-quizzes{
+.titulo-quizzes{
+    font-weight: 700;
+    font-size: 20px;
 
+    margin-bottom: 13px;
 }
 
+.ul-seus-quizzes, .ul-todos-quizzes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+li{
+    border-radius: 5px;
+    margin-bottom: 12px;
+}
+
+.ul-seus-quizzes li img, .ul-todos-quizzes li img {
+    width: 340px;
+    height: 181px;
+    border-radius: 5px;
+}
 .escondido{
     display:none;
 }
