@@ -46,7 +46,16 @@ body{
     font-weight: 700;
     font-size: 20px;
 
+    display: flex;
+    align-items: center;
+
     margin-bottom: 13px;
+}
+
+.titulo-quizzes ion-icon{
+    fill: #EC362D;
+    margin-left: 17px;
+    font-size: 32px;
 }
 
 .ul-seus-quizzes, .ul-todos-quizzes{
