@@ -15,12 +15,12 @@
     <div class="topo">BuzzQuizz</div>
 
 
-    <div class="conteudo-tela1 escondido">
-        <div class="criar-quizzes escondido">
+    <div class="conteudo-tela1">
+        <div class="criar-quizzes">
             <span class="nao-criou-quizz">Você não criou nenhum quizz ainda :(</span>
             <input class="criar-quizz" type="button" value="Criar Quizz" onclick="criarQuizz()">
         </div>
-        <div class="seus-quizzes">
+        <div class="seus-quizzes escondido">
             <div class="titulo-quizzes">Seus Quizzes <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon></div>
             <ul class="ul-seus-quizzes">
                 <li onclick="acessarQuizz(this)">
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <div class="conteudo-tela2">
+    <div class="conteudo-tela2 escondido">
         <div class="topo-tela2">
             <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
             <div class="titulo-quizzes-tela2">
@@ -150,10 +150,10 @@
                 <input type="text" placeholder="Quantidade de perguntas do seu quizz">
                 <input type="text" placeholder="Quantidade de níveis do quizz">
             </div>
-            <input class="botao-perguntas" type="button" value="Prosseguir pra criar perguntas">
+            <input class="botao-perguntas" onclick="criarPerguntas()" type="button" value="Prosseguir pra criar perguntas">
         </div>
 
-        <div class="criar-perguntas">
+        <div class="criar-perguntas escondido">
             <div class="texto">
                 <strong>
                     Crie suas perguntas
@@ -205,9 +205,10 @@
                 </div>
             </div>
            
-            <input class="botao-perguntas" type="button" value="Prosseguir pra criar níveis">
+            <input class="botao-perguntas" onclick="criarNiveis()" type="button" value="Prosseguir pra criar níveis">
         </div>
-        <div class="escolha-niveis">
+
+        <div class="escolha-niveis escondido">
             <div class="texto">
                 <strong>
                     Agora, decida os níveis
@@ -236,9 +237,10 @@
                 </div>
             </div>
             
-            <input class="botao-perguntas" type="button" value="Finalizar quizz">
+            <input class="botao-perguntas" onclick="finalizarQuizz()" type="button" value="Finalizar quizz">
         </div>
-        <div class="quizz-pronto">
+
+        <div class="quizz-pronto escondido">
             <div class="texto">
                 <strong>
                     Seu quizz está pronto!
@@ -250,8 +252,8 @@
                     Cachorrinhos esperando na frente de uma árvore caindo folhas
                 </div>
             </div>
-            <input class="botao-finalizado" type="button" value="Acessar Quizz">
-            <input class="botao-voltar-home" type="button" value="Voltar pra home">
+            <input class="botao-finalizado" onclick="" type="button" value="Acessar Quizz">
+            <input class="botao-voltar-home" onclick="paginaPrincipal()" type="button" value="Voltar pra home">
         </div>
     </div>
 
