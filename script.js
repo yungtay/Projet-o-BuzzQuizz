@@ -15,10 +15,8 @@ function acessarQuizz(){
 }
 
 function criarQuizz(){
-    const esconderTela = document.querySelector(".conteudo-tela1");
-    const mostrarTela = document.querySelector(".conteudo-tela3");
-    esconderTela.classList.add("escondido");
-    mostrarTela.classList.remove("escondido");
+    tela1.classList.toggle("escondido")
+    tela3.classList.toggle("escondido")
 }
 
 function escolherResposta(ele){
@@ -52,7 +50,7 @@ function correcao(todasAlternativas){
 }
 
 function comparaResposta(alternativa){
-    if(alternativa === alternativa){
+    if(alternativa === teste){
         respostaCerta.push(alternativa)
     } else {
         respostasErradas.push(alternativa)
