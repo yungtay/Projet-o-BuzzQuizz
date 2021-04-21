@@ -1,6 +1,8 @@
 const tela1 = document.querySelector(".conteudo-tela1")
 const tela2 = document.querySelector(".conteudo-tela2")
 const tela3 = document.querySelector(".conteudo-tela3")
+const modeloQuizz = {title:"", image:"", question:[], level:[]};
+
 let respostaEscolhida;
 let respostaCerta;
 let respostasErradas;
@@ -88,6 +90,21 @@ function abrirNivel(elemento){
     console.log(esconderNivelAberto);
     esconderNivelAberto.classList.remove("escondido");
     esconderNivelAberto.nextElementSibling.classList.add("escondido");
+}
+
+function formatarPerguntas(elemento){
+    const pai = elemento.previousElementSibling;
+    modeloQuizz.title = pai.querySelector("input:first-child").value;
+    pai.querySelector("input:first-child").value = "";
+    modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
+    pai.querySelector("input:nth-child(2)").value = "";
+    modeloQuizz.question.length = pai.querySelector("input:nth-child(3)").value;
+    pai.querySelector("input:nth-child(3)").value = "";
+    modeloQuizz.level.length = pai.querySelector("input:last-child").value;
+    pai.querySelector("input:last-child").value = "";
+    console.log(modeloQuizz);
+
+    //criei o objeto e populei com qualquer coisa, por enquanto. Falta fazer as verificações.
 }
 
 function criarPerguntas(){
