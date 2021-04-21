@@ -70,9 +70,12 @@ function abrirPergunta(elemento){
     const perguntaEscondida = elemento.nextElementSibling;
     elemento.classList.add("escondido");
     perguntaEscondida.classList.remove("escondido");
-    const pai = elemento.parentNode;
+    console.log(perguntaEscondida);
 
-    const esconderPerguntaAberta = pai.querySelector(".pergunta-fechada, escondido");
+    const pai = elemento.parentNode;
+    console.log(pai);
+
+    const esconderPerguntaAberta = pai.querySelector(".pergunta-fechada, .escondido");
     console.log(esconderPerguntaAberta);
     esconderPerguntaAberta.classList.remove("escondido");
     esconderPerguntaAberta.nextElementSibling.classList.add("escondido");
@@ -94,15 +97,28 @@ function abrirNivel(elemento){
 
 function formatarPerguntas(elemento){
     const pai = elemento.previousElementSibling;
+
     modeloQuizz.title = pai.querySelector("input:first-child").value;
-    pai.querySelector("input:first-child").value = "";
     modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
-    pai.querySelector("input:nth-child(2)").value = "";
     modeloQuizz.question.length = pai.querySelector("input:nth-child(3)").value;
-    pai.querySelector("input:nth-child(3)").value = "";
     modeloQuizz.level.length = pai.querySelector("input:last-child").value;
-    pai.querySelector("input:last-child").value = "";
+
+    /*if(pai.querySelector("input:first-child").value.length < 65 && pai.querySelector("input:first-child").value.length > 20){
+        modeloQuizz.title = pai.querySelector("input:first-child").value;
+    }
+    //PUXAR O TESTE DA URL AQUI modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
+    if(pai.querySelector("input:nth-child(3)").value > 2){
+        modeloQuizz.question.length = pai.querySelector("input:nth-child(3)").value;
+    }
+    if(pai.querySelector("input:last-child").value > 1){
+        modeloQuizz.level.length = pai.querySelector("input:last-child").value;
+    }*/
+    
     console.log(modeloQuizz);
+    pai.querySelector("input:first-child").value = "";
+    pai.querySelector("input:nth-child(2)").value = "";
+    pai.querySelector("input:nth-child(3)").value = "";
+    pai.querySelector("input:last-child").value = "";
 
     //criei o objeto e populei com qualquer coisa, por enquanto. Falta fazer as verificações.
 }
