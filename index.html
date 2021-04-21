@@ -205,7 +205,7 @@
                     Crie suas perguntas
                 </strong>
             </div>
-            <div class="pergunta-fechada">
+            <div class="pergunta-fechada escondido" onclick="abrirPergunta(this)">
                 <span>
                     <strong>
                         Pergunta 1
@@ -250,6 +250,52 @@
                     <input type="text" placeholder="URL da imagem 3">
                 </div>
             </div>
+
+            <div class="pergunta-fechada" onclick="abrirPergunta(this)">
+                <span>
+                    <strong>
+                        Pergunta 2
+                    </strong>
+                </span>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="perguntas escondido">
+                <span class="pergunta-texto">
+                    <strong>
+                        Pergunta 2
+                    </strong>
+                </span>
+                <div class="pergunta-criar-quizz">
+                    <input type="text" placeholder="Texto da pergunta">
+                    <input type="text" placeholder="Cor de fundo da pergunta">
+                </div>
+                <span class="pergunta-texto">
+                    <strong>
+                        Resposta correta
+                    </strong>
+                </span>
+                <div class="resposta-criar-quizz">
+                    <input type="text" placeholder="Resposta correta">
+                    <input type="text" placeholder="URL da imagem">
+                </div>
+                <span class="pergunta-texto">
+                    <strong>
+                        Respostas incorretas
+                    </strong>
+                </span>
+                <div class="primeira-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 1">
+                    <input type="text" placeholder="URL da imagem 1">
+                </div>
+                <div class="segunda-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 2">
+                    <input type="text" placeholder="URL da imagem 2">
+                </div>
+                <div class="terceira-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 3">
+                    <input type="text" placeholder="URL da imagem 3">
+                </div>
+            </div>
            
             <input class="botao-perguntas" onclick="criarNiveis()" type="button" value="Prosseguir pra criar níveis">
         </div>
@@ -260,7 +306,8 @@
                     Agora, decida os níveis
                 </strong>
             </div>
-            <div class="pergunta-fechada">
+
+            <div class="pergunta-fechada escondido" onclick="abrirNivel(this)">
                 <span class="pergunta-texto">
                     <strong>
                         Nível 1
@@ -272,6 +319,29 @@
                 <span class="pergunta-texto">
                     <strong>
                         Nível 1
+                    </strong>
+                </span>
+                <div class="resposta-nivel">
+                    <input type="text" placeholder="Título do nível">
+                    <input type="text" placeholder="% de acerto mínima">
+                    <input type="text" placeholder="URL da imagem do nível">
+                    <input type="text" placeholder="Descrição do nível">
+                    <textarea placeholder="Descrição do nível" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+
+            <div class="pergunta-fechada"  onclick="abrirNivel(this)">
+                <span class="pergunta-texto">
+                    <strong>
+                        Nível 2
+                    </strong>
+                </span>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="perguntas escondido">
+                <span class="pergunta-texto">
+                    <strong>
+                        Nível 2
                     </strong>
                 </span>
                 <div class="resposta-nivel">

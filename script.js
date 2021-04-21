@@ -15,10 +15,8 @@ function acessarQuizz(){
 }
 
 function criarQuizz(){
-    const esconderTela = document.querySelector(".conteudo-tela1");
-    const mostrarTela = document.querySelector(".conteudo-tela3");
-    esconderTela.classList.add("escondido");
-    mostrarTela.classList.remove("escondido");
+    tela1.classList.add("escondido");
+    tela3.classList.remove("escondido");
 }
 
 function escolherResposta(ele){
@@ -66,6 +64,32 @@ function scrollar(){
     }
 }
 
+function abrirPergunta(elemento){
+    const perguntaEscondida = elemento.nextElementSibling;
+    elemento.classList.add("escondido");
+    perguntaEscondida.classList.remove("escondido");
+    const pai = elemento.parentNode;
+
+    const esconderPerguntaAberta = pai.querySelector(".pergunta-fechada, escondido");
+    console.log(esconderPerguntaAberta);
+    esconderPerguntaAberta.classList.remove("escondido");
+    esconderPerguntaAberta.nextElementSibling.classList.add("escondido");
+
+    //Mano, não sei pq não ta abrindo na segunda vez, aqui e na próxima função. Separei em duas pra fazer melhor mas da pra refatorar.
+}
+
+function abrirNivel(elemento){
+    const nivelEscondido = elemento.nextElementSibling;
+    elemento.classList.add("escondido");
+    nivelEscondido.classList.remove("escondido");
+    const pai = elemento.parentNode;
+
+    const esconderNivelAberto = pai.querySelector(".pergunta-fechada, escondido");
+    console.log(esconderNivelAberto);
+    esconderNivelAberto.classList.remove("escondido");
+    esconderNivelAberto.nextElementSibling.classList.add("escondido");
+}
+
 function criarPerguntas(){
     const esconderTela = document.querySelector(".comeca-pelo-comeco");
     const mostrarTela = document.querySelector(".criar-perguntas");
@@ -88,13 +112,11 @@ function finalizarQuizz(){
 }
 
 function paginaPrincipal(){
-    const mostrarTelaPrincipal = document.querySelector(".conteudo-tela1");
-    const esconderTelaAtual = document.querySelector(".conteudo-tela3");
     const alterarCriacao = document.querySelector(".quizz-pronto");
     const mostrarPassoCriacao = document.querySelector(".comeca-pelo-comeco");
     
-    mostrarTelaPrincipal.classList.remove("escondido");
-    esconderTelaAtual.classList.add("escondido");
+    tela1.classList.remove("escondido");
+    tela3.classList.add("escondido");
     alterarCriacao.classList.add("escondido");
     mostrarPassoCriacao.classList.remove("escondido");
 }
