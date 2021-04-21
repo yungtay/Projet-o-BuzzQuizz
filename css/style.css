@@ -134,12 +134,11 @@ li div{
 
 .conteudo-tela3{
     width: 100%;
-    margin-top: 69px;
+    margin-top: 39px;
     padding: 77px calc(calc(100vw - 600px)/2) 30px calc(calc(100vw - 600px)/2);
 }
 
 .comeca-pelo-comeco .perguntas, .perguntas, .pergunta-fechada{
-
     background-color: #FFFFFF;
 }
 
@@ -152,7 +151,7 @@ li div{
 }
 
 .primeira-resposta-incorreta, .segunda-resposta-incorreta{
-    margin-bottom: 32px;
+    margin-bottom: 18px;
 }
 
 .conteudo-tela3 .texto{
@@ -163,10 +162,7 @@ li div{
     margin-bottom: 30px;
 }
 
-.conteudo-tela3 .perguntas{
-    display: flex;
-    flex-direction: column;
-
+.conteudo-tela3 .perguntas, .pergunta-fechada{
     width: 100%;
     padding: 15px 20px;
     margin-bottom: 24px;
@@ -174,10 +170,16 @@ li div{
     box-shadow: 0 0 5px rgba(0,0,0,0.25);
 }
 
+.conteudo-tela3 .perguntas span strong{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
 .conteudo-tela3 .perguntas input{
     width: 100%;
     height: 46px;
-    margin: 5px 0;
+    margin: 7px 0;
     padding: 0 20px;
 
     border-radius: 5px;
@@ -282,7 +284,7 @@ input:invalid {
     height: 44px;
 
     border: none;
-    background-color: #e5e5e5;
+    background-color: #fafafa;
 
     font-size: 21px;
     color: #818181;

@@ -1,6 +1,8 @@
 const tela1 = document.querySelector(".conteudo-tela1")
 const tela2 = document.querySelector(".conteudo-tela2")
 const tela3 = document.querySelector(".conteudo-tela3")
+const modeloQuizz = {title:"", image:"", question:[], level:[]};
+
 let respostaEscolhida;
 let respostaCerta;
 let respostasErradas;
@@ -64,6 +66,47 @@ function scrollar(){
     }
 }
 
+function abrirPergunta(elemento){
+    const perguntaEscondida = elemento.nextElementSibling;
+    elemento.classList.add("escondido");
+    perguntaEscondida.classList.remove("escondido");
+    const pai = elemento.parentNode;
+
+    const esconderPerguntaAberta = pai.querySelector(".pergunta-fechada, escondido");
+    console.log(esconderPerguntaAberta);
+    esconderPerguntaAberta.classList.remove("escondido");
+    esconderPerguntaAberta.nextElementSibling.classList.add("escondido");
+
+    //Mano, não sei pq não ta abrindo na segunda vez, aqui e na próxima função. Separei em duas pra fazer melhor mas da pra refatorar.
+}
+
+function abrirNivel(elemento){
+    const nivelEscondido = elemento.nextElementSibling;
+    elemento.classList.add("escondido");
+    nivelEscondido.classList.remove("escondido");
+    const pai = elemento.parentNode;
+
+    const esconderNivelAberto = pai.querySelector(".pergunta-fechada, escondido");
+    console.log(esconderNivelAberto);
+    esconderNivelAberto.classList.remove("escondido");
+    esconderNivelAberto.nextElementSibling.classList.add("escondido");
+}
+
+function formatarPerguntas(elemento){
+    const pai = elemento.previousElementSibling;
+    modeloQuizz.title = pai.querySelector("input:first-child").value;
+    pai.querySelector("input:first-child").value = "";
+    modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
+    pai.querySelector("input:nth-child(2)").value = "";
+    modeloQuizz.question.length = pai.querySelector("input:nth-child(3)").value;
+    pai.querySelector("input:nth-child(3)").value = "";
+    modeloQuizz.level.length = pai.querySelector("input:last-child").value;
+    pai.querySelector("input:last-child").value = "";
+    console.log(modeloQuizz);
+
+    //criei o objeto e populei com qualquer coisa, por enquanto. Falta fazer as verificações.
+}
+
 function criarPerguntas(){
     const esconderTela = document.querySelector(".comeca-pelo-comeco");
     const mostrarTela = document.querySelector(".criar-perguntas");
@@ -86,13 +129,11 @@ function finalizarQuizz(){
 }
 
 function paginaPrincipal(){
-    const mostrarTelaPrincipal = document.querySelector(".conteudo-tela1");
-    const esconderTelaAtual = document.querySelector(".conteudo-tela3");
     const alterarCriacao = document.querySelector(".quizz-pronto");
     const mostrarPassoCriacao = document.querySelector(".comeca-pelo-comeco");
     
-    mostrarTelaPrincipal.classList.remove("escondido");
-    esconderTelaAtual.classList.add("escondido");
+    tela1.classList.remove("escondido");
+    tela3.classList.add("escondido");
     alterarCriacao.classList.add("escondido");
     mostrarPassoCriacao.classList.remove("escondido");
 }
