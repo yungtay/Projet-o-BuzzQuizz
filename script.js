@@ -17,8 +17,8 @@ function acessarQuizz(){
 }
 
 function criarQuizz(){
-    tela1.classList.add("escondido");
-    tela3.classList.remove("escondido");
+    tela1.classList.toggle("escondido")
+    tela3.classList.toggle("escondido")
 }
 
 function escolherResposta(ele){
@@ -52,7 +52,7 @@ function correcao(todasAlternativas){
 }
 
 function comparaResposta(alternativa){
-    if(alternativa === alternativa){
+    if(alternativa === teste){
         respostaCerta.push(alternativa)
     } else {
         respostasErradas.push(alternativa)
