@@ -11,6 +11,9 @@ let quizzes
 let respostaEscolhida;
 let respostaCerta;
 let respostasErradas;
+
+
+let dadosQuizzAtual = []
 let tentativas = 0;
 let acertos = 0;
 let porcentagem = 0;
@@ -38,6 +41,10 @@ function popularQuizzes(){
 function acessarQuizz(){
     tela1.classList.toggle("escondido")
     tela2.classList.toggle("escondido")
+    window.scroll({
+        top: 0,
+        left: 0,
+     });
 }
 
 function criarQuizz(){
@@ -55,21 +62,21 @@ function paginaQuizz(resposta){
     tentativas = 0;
     acertos = 0;
     porcentagem = 0;
-    const dados = resposta.data
+    dadosQuizzAtual = resposta
     const pagina = document.querySelector(".conteudo-tela2")
     
     pagina.innerHTML = `
         <div class="topo-tela2">
-            <img src="${dados.image}" alt="">
+            <img src="${dadosQuizzAtual.data.image}" alt="">
             <div class="titulo-quizzes-tela2">
-                ${dados.title}
+                ${dadosQuizzAtual.data.title}
             </div>
         </div>
         <div class="perguntas-quizz">
         </div>`
 
     const perguntas = document.querySelector(".perguntas-quizz")
-    dados.questions.forEach(pergunta => {
+    dadosQuizzAtual.data.questions.forEach(pergunta => {
         perguntas.innerHTML += `
             <div class="pergunta-quizz">
                 <div class="titulo-quizz-tela2" style="background-color:${pergunta.color};">
@@ -79,7 +86,7 @@ function paginaQuizz(resposta){
                 </div>
             </div>`
         const respostas = document.querySelectorAll(".alternativas-respostas")
-        pergunta.answers.forEach(resposta => {
+        pergunta.answers.sort(aleatorio).forEach(resposta => {
             respostas[respostas.length - 1].innerHTML += `
                     <div class="alternativa" onclick="escolherResposta(this)" isCorrectAnswer="${resposta.isCorrectAnswer}">
                         <img src="${resposta.image}" alt="">
@@ -87,25 +94,10 @@ function paginaQuizz(resposta){
                     </div>`
         });
     });
-
-    perguntas.innerHTML += `
-    <div class="resultado-acertos escondido">
-        <div class="titulo-acertos">
-            <span>${porcentagem}% de acerto: ${dados.levels[0].title}</span> 
-        </div>
-        <div class="imagemEDescricaoAcerto">
-            <img src="${dados.levels[0].image}" alt="">
-            <span class="descricao-acerto">
-                ${dados.levels[0].text}
-            </span>
-        </div>
-    </div>
-    <div class="finalDoQuizz escondido">
-    <button class="reiniciarQuizz" onclick="">Reiniciar Quizz</button>
-        <button class="voltarHome" onclick="acessarQuizz()">Voltar pra home</button>
-    </div>
-    `
-    acessarQuizz()
+    if(tela2.classList.contains("escondido")){
+        acessarQuizz()
+    }
+    
 }
 
 function escolherResposta(ele){
@@ -147,18 +139,63 @@ function scrollar(){
     const pergunta = document.querySelectorAll(".pergunta-quizz")
     if(tentativas < pergunta.length){
         pergunta[tentativas].scrollIntoView({block: "center", behavior: "smooth"})
-    } else{
+        console.log("Menor")
+    } else if (tentativas === pergunta.length){
+        console.log("Maior")
         fimQuizz()
     }
 }
 
 function fimQuizz(){
-    porcentagem = (acertos/tentativas)*100;
+    porcentagem = Math.round((acertos/tentativas)*100);
+    const nivel = nivelAtingido(porcentagem)
+    const perguntas = document.querySelector(".perguntas-quizz")
+    perguntas.innerHTML += `
+    <div class="resultado-acertos escondido">
+        <div class="titulo-acertos">
+            <span>${porcentagem}% de acerto: ${dadosQuizzAtual.data.levels[nivel].title}</span> 
+        </div>
+        <div class="imagemEDescricaoAcerto">
+            <img src="${dadosQuizzAtual.data.levels[nivel].image}" alt="">
+            <span class="descricao-acerto">
+                ${dadosQuizzAtual.data.levels[nivel].text}
+            </span>
+        </div>
+    </div>
+    <div class="finalDoQuizz escondido">
+    <button class="reiniciarQuizz" onclick="reiniciar()">Reiniciar Quizz</button>
+        <button class="voltarHome" onclick="acessarQuizz()">Voltar pra home</button>
+    </div>
+    `
     const resultado = document.querySelector(".resultado-acertos")
     const botoesFinalQuizz = document.querySelector(".finalDoQuizz")
     resultado.classList.toggle("escondido")
     botoesFinalQuizz.classList.toggle("escondido")
     resultado.scrollIntoView({block: "center", behavior: "smooth"})
+}
+
+function reiniciar(){
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+     });
+    paginaQuizz(dadosQuizzAtual)
+
+}
+
+function nivelAtingido(porcentagem){
+    const dadosAgrupados = []
+    const dadosAgrupadosOriginal = []
+    dadosQuizzAtual.data.levels.forEach(element => {
+        dadosAgrupados.push(element["minValue"])
+        dadosAgrupadosOriginal.push(element["minValue"])
+    });
+    dadosAgrupados.sort(numeroDescrescentes)
+    const nivel = dadosAgrupados.find(element => element <= porcentagem)
+    return dadosAgrupadosOriginal.indexOf(nivel)
+
+
 }
 
 function abrirPergunta(elemento){
@@ -247,4 +284,12 @@ function paginaPrincipal(){
     tela3.classList.add("escondido");
     alterarCriacao.classList.add("escondido");
     mostrarPassoCriacao.classList.remove("escondido");
+}
+
+function numeroDescrescentes(a, b) {
+    return b - a;
+}
+
+function aleatorio() { 
+	return Math.random() - 0.5; 
 }
