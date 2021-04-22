@@ -15,7 +15,7 @@
     <div class="topo">BuzzQuizz</div>
 
 
-    <div class="conteudo-tela1">
+    <div class="conteudo-tela1 escondido">
         <div class="criar-quizzes">
             <span class="nao-criou-quizz">Você não criou nenhum quizz ainda :(</span>
             <input class="criar-quizz" type="button" value="Criar Quizz" onclick="criarQuizz()">
@@ -174,7 +174,7 @@
         </div>
     </div>
 
-    <div class="conteudo-tela3 escondido">
+    <div class="conteudo-tela3">
         <div class="comeca-pelo-comeco">
             <div class="texto">
                 <strong>
@@ -191,63 +191,9 @@
         </div>
 
         <div class="criar-perguntas escondido">
-
         </div>
 
         <div class="escolha-niveis escondido">
-            <div class="texto">
-                <strong>
-                    Agora, decida os níveis
-                </strong>
-            </div>
-
-            <div class="pergunta-fechada escondido" onclick="abrirNivel(this)">
-                <span class="pergunta-texto">
-                    <strong>
-                        Nível 1
-                    </strong>
-                </span>
-                <ion-icon name="create-outline"></ion-icon>
-            </div>
-            <div class="perguntas">
-                <span class="pergunta-texto">
-                    <strong>
-                        Nível 1
-                    </strong>
-                </span>
-                <div class="resposta-nivel">
-                    <input type="text" placeholder="Título do nível">
-                    <input type="text" placeholder="% de acerto mínima">
-                    <input type="text" placeholder="URL da imagem do nível">
-                    <input type="text" placeholder="Descrição do nível">
-                    <textarea placeholder="Descrição do nível" cols="30" rows="10"></textarea>
-                </div>
-            </div>
-
-            <div class="pergunta-fechada"  onclick="abrirNivel(this)">
-                <span class="pergunta-texto">
-                    <strong>
-                        Nível 2
-                    </strong>
-                </span>
-                <ion-icon name="create-outline"></ion-icon>
-            </div>
-            <div class="perguntas escondido">
-                <span class="pergunta-texto">
-                    <strong>
-                        Nível 2
-                    </strong>
-                </span>
-                <div class="resposta-nivel">
-                    <input type="text" placeholder="Título do nível">
-                    <input type="text" placeholder="% de acerto mínima">
-                    <input type="text" placeholder="URL da imagem do nível">
-                    <input type="text" placeholder="Descrição do nível">
-                    <textarea placeholder="Descrição do nível" cols="30" rows="10"></textarea>
-                </div>
-            </div>
-            
-            <input class="botao-perguntas" onclick="finalizarQuizz()" type="button" value="Finalizar quizz">
         </div>
 
         <div class="quizz-pronto escondido">
