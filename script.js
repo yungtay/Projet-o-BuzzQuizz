@@ -2,7 +2,7 @@ const tela1 = document.querySelector(".conteudo-tela1")
 const tela2 = document.querySelector(".conteudo-tela2")
 const tela3 = document.querySelector(".conteudo-tela3")
 const modeloQuizz = {title:"", image:"", question:[], level:[]};
-
+let perguntas = [];
 let respostaEscolhida;
 let respostaCerta;
 let respostasErradas;
@@ -66,23 +66,6 @@ function scrollar(){
     }
 }
 
-function abrirPergunta(elemento){
-    const perguntaEscondida = elemento.nextElementSibling;
-    elemento.classList.add("escondido");
-    perguntaEscondida.classList.remove("escondido");
-    console.log(perguntaEscondida);
-
-    const pai = elemento.parentNode;
-    console.log(pai);
-
-    const esconderPerguntaAberta = pai.querySelector(".pergunta-fechada, .escondido");
-    console.log(esconderPerguntaAberta);
-    esconderPerguntaAberta.classList.remove("escondido");
-    esconderPerguntaAberta.nextElementSibling.classList.add("escondido");
-
-    //Mano, não sei pq não ta abrindo na segunda vez, aqui e na próxima função. Separei em duas pra fazer melhor mas da pra refatorar.
-}
-
 function abrirNivel(elemento){
     const nivelEscondido = elemento.nextElementSibling;
     elemento.classList.add("escondido");
@@ -98,36 +81,146 @@ function abrirNivel(elemento){
 function formatarPerguntas(elemento){
     const pai = elemento.previousElementSibling;
 
-    modeloQuizz.title = pai.querySelector("input:first-child").value;
-    modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
-    modeloQuizz.question.length = pai.querySelector("input:nth-child(3)").value;
-    modeloQuizz.level.length = pai.querySelector("input:last-child").value;
-
-    /*if(pai.querySelector("input:first-child").value.length < 65 && pai.querySelector("input:first-child").value.length > 20){
+    if(pai.querySelector("input:first-child").value.length < 65 && pai.querySelector("input:first-child").value.length > 2/*20*/){
         modeloQuizz.title = pai.querySelector("input:first-child").value;
+    }else{
+        //alert("Título não válido");
+        console.log("Título não válido");
     }
-    //PUXAR O TESTE DA URL AQUI modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
+    
+    if(/*cirar o teste de URL aqui e retornar true ou false testeURL(pai.querySelector("input:nth-child(2)").value)*/
+        pai.querySelector("input:nth-child(2)").value !== ""){
+        modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
+    }else{
+        //alert("URL não válida");
+        console.log("URL não válida");
+    }
+
     if(pai.querySelector("input:nth-child(3)").value > 2){
         modeloQuizz.question.length = pai.querySelector("input:nth-child(3)").value;
+    }else{
+        //alert("Número de questões não válido");
+        console.log("Número de questões não válido");
     }
+
+
     if(pai.querySelector("input:last-child").value > 1){
         modeloQuizz.level.length = pai.querySelector("input:last-child").value;
-    }*/
-    
-    console.log(modeloQuizz);
-    pai.querySelector("input:first-child").value = "";
-    pai.querySelector("input:nth-child(2)").value = "";
-    pai.querySelector("input:nth-child(3)").value = "";
-    pai.querySelector("input:last-child").value = "";
+    }else{
+        //alert("Número de níveis não válido");
+        console.log("Número de níveis não válido");
+    }
 
-    //criei o objeto e populei com qualquer coisa, por enquanto. Falta fazer as verificações.
+
+    if(modeloQuizz.title !== "" && modeloQuizz.image !== "" && modeloQuizz.question.length > 2 && modeloQuizz.level.length > 1){
+        popularPerguntas();
+        pai.querySelector("input:first-child").value = "";
+        pai.querySelector("input:nth-child(2)").value = "";
+        pai.querySelector("input:nth-child(3)").value = "";
+        pai.querySelector("input:last-child").value = "";
+    }
+
+    console.log(modeloQuizz);
 }
 
-function criarPerguntas(){
+function popularPerguntas(){
     const esconderTela = document.querySelector(".comeca-pelo-comeco");
     const mostrarTela = document.querySelector(".criar-perguntas");
     esconderTela.classList.add("escondido");
     mostrarTela.classList.remove("escondido");
+
+    mostrarTela.innerHTML = `
+        <div class="texto">
+            <strong>
+                Crie suas perguntas
+            </strong>
+        </div>
+    `;
+
+    for (let i = 0; i < modeloQuizz.question.length; i++) {
+        mostrarTela.innerHTML += `
+            <div class="pergunta-fechada" onclick="abrirPergunta(this)">
+                <span>
+                    <strong>
+                        Pergunta ${i+1}
+                    </strong>
+                </span>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            
+            <div class="perguntas escondido">
+                <span class="pergunta-texto">
+                    <strong>
+                        Pergunta ${i+1}
+                    </strong>
+                </span>
+                <div class="pergunta-criar-quizz">
+                    <input type="text" placeholder="Texto da pergunta">
+                    <input type="text" placeholder="Cor de fundo da pergunta">
+                </div>
+                <span class="pergunta-texto">
+                    <strong>
+                        Resposta correta
+                    </strong>
+                </span>
+                <div class="resposta-criar-quizz">
+                    <input type="text" placeholder="Resposta correta">
+                    <input type="text" placeholder="URL da imagem">
+                </div>
+                <span class="pergunta-texto">
+                    <strong>
+                        Respostas incorretas
+                    </strong>
+                </span>
+                <div class="primeira-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 1">
+                    <input type="text" placeholder="URL da imagem 1">
+                </div>
+                <div class="segunda-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 2">
+                    <input type="text" placeholder="URL da imagem 2">
+                </div>
+                <div class="terceira-resposta-incorreta">
+                    <input type="text" placeholder="Respostas incorretas 3">
+                    <input type="text" placeholder="URL da imagem 3">
+                </div>
+            </div>
+        `;
+    }
+    mostrarTela.innerHTML += `
+    <input class="botao-perguntas" onclick="formatarRespostas(this)" type="button" value="Prosseguir pra criar níveis">
+    `;
+}
+
+function abrirPergunta(elemento){
+    const pai = elemento.parentNode;
+    const perguntaEscondida = elemento.nextElementSibling;
+    const esconderPerguntaAberta = pai.querySelector(".pergunta-fechada.escondido");
+
+    if(pai.querySelector(".pergunta-fechada.escondido") !== null){
+
+        elemento.classList.add("escondido");
+        perguntaEscondida.classList.remove("escondido");
+
+        esconderPerguntaAberta.classList.remove("escondido");
+        esconderPerguntaAberta.nextElementSibling.classList.add("escondido");
+
+    }else{
+
+        elemento.classList.add("escondido");
+        perguntaEscondida.classList.remove("escondido");
+    }    
+}
+
+function formatarRespostas(elemento){
+    const todasAsPerguntas = Array.from(elemento.parentNode.querySelectorAll('.perguntas'));
+    const 
+
+    for (let i = 0; i < todasAsPerguntas.length; i++) {
+        const perguntaPrincipal = todasAsPerguntas[i].querySelector(".pergunta-criar-quizz");
+        console.log(perguntaPrincipal.querySelector("input:first-child").value);
+        console.log(perguntaPrincipal.querySelector("input:last-child").value);
+    }
 }
 
 function criarNiveis(){
