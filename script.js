@@ -17,6 +17,7 @@ let dadosQuizzAtual = []
 let tentativas = 0;
 let acertos = 0;
 let porcentagem = 0;
+let flagFimQuizz;
 
 
 function captarQuizzes(resposta){
@@ -59,6 +60,7 @@ function carregarQuizz(id){
 }
 
 function paginaQuizz(resposta){
+    flagFimQuizz = 0
     tentativas = 0;
     acertos = 0;
     porcentagem = 0;
@@ -111,7 +113,6 @@ function escolherResposta(ele){
     ele.classList.remove("esbranquicado")
     respostaEscolhida = ele
     correcao(todasAlternativas)
-    setTimeout(scrollar, 2000)
 }
 
 function correcao(todasAlternativas){
@@ -120,6 +121,7 @@ function correcao(todasAlternativas){
     todasAlternativas.forEach(comparaResposta)
     if (respostaEscolhida === respostaCerta[0]){ acertos += 1}
     tentativas += 1;
+    setTimeout(scrollar, 2000)
     respostaCerta[0].classList.add("correto")
     respostasErradas.forEach(alt => {
         alt.classList.add("errado")
@@ -139,14 +141,13 @@ function scrollar(){
     const pergunta = document.querySelectorAll(".pergunta-quizz")
     if(tentativas < pergunta.length){
         pergunta[tentativas].scrollIntoView({block: "center", behavior: "smooth"})
-        console.log("Menor")
-    } else if (tentativas === pergunta.length){
-        console.log("Maior")
+    } else if (tentativas === pergunta.length && flagFimQuizz === 0){
         fimQuizz()
     }
 }
 
 function fimQuizz(){
+    flagFimQuizz = 1;
     porcentagem = Math.round((acertos/tentativas)*100);
     const nivel = nivelAtingido(porcentagem)
     const perguntas = document.querySelector(".perguntas-quizz")
