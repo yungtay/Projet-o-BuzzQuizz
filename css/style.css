@@ -195,7 +195,7 @@ li div{
 input:invalid {
     color: red;
     border: 2px dashed red;
-  }
+}
 
 .conteudo-tela3 .perguntas input::placeholder, .resposta-nivel textarea::placeholder{
     color: #bababa;
