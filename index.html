@@ -15,7 +15,7 @@
     <div class="topo">BuzzQuizz</div>
 
 
-    <div class="conteudo-tela1 escondido">
+    <div class="conteudo-tela1">
         <div class="criar-quizzes">
             <span class="nao-criou-quizz">Você não criou nenhum quizz ainda :(</span>
             <input class="criar-quizz" type="button" value="Criar Quizz" onclick="criarQuizz()">
@@ -23,7 +23,7 @@
         <div class="seus-quizzes escondido">
             <div class="titulo-quizzes">Seus Quizzes <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon></div>
             <ul class="ul-seus-quizzes">
-                <li onclick="acessarQuizz(this)">
+                <li onclick="acessarQuizz()">
                     <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
                     <div class="titulo-il-quizzes">
                         Cachorrinhos esperando na frente de uma árvore caindo folhas
@@ -52,29 +52,6 @@
         <div class="todos-quizzes">
             <div class="titulo-quizzes">Todos os Quizzes</div>
             <ul class="ul-todos-quizzes">
-                <li>
-                    <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
-                    <div class="titulo-il-quizzes">
-                        Cachorrinhos esperando na frente de uma árvore caindo folhas
-                    </div>
-                </li>
-                <li>
-                    <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
-                    <div class="titulo-il-quizzes">
-                        Cachorrinhos esperando na frente de uma árvore caindo folhas
-                    </div>
-                </li>
-                <li>
-                    <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
-                    <div class="titulo-il-quizzes">
-                        Cachorrinhos esperando na frente de uma árvore caindo folhas
-                    </div>
-                </li>
-                <li>
-                    <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
-                    <div class="titulo-il-quizzes">
-                        Cachorrinhos esperando na frente de uma árvore caindo folhas
-                    </div>  
             </ul>
         </div>
     </div>
@@ -179,12 +156,26 @@
                     </div> 
                 </div>
             </div>
+            <div class="resultado-acertos escondido">
+                <div class="titulo-acertos">
+                    <span>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</span> 
+                </div>
+                <div class="imagemEDescricaoAcerto">
+                    <img src="https://super.abril.com.br/wp-content/uploads/2018/05/filhotes-de-cachorro-alcanc3a7am-o-c3a1pice-de-fofura-com-8-semanas1.png" alt="">
+                    <span class="descricao-acerto">
+                        Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.
+                    </span>
+                </div>
+            </div>
+            <div class="finalDoQuizz escondido">
+                <button class="reiniciarQuizz">Reiniciar Quizz</button>
+                <button class="voltarHome" onclick="acessarQuizz()">Voltar pra home</button>
+            </div>
         </div>
-        
     </div>
 
-    <div class="conteudo-tela3">
-        <div class="comeca-pelo-comeco">
+    <div class="conteudo-tela3 escondido">
+        <div class="comeca-pelo-comeco escondido">
             <div class="texto">
                 <strong>
                     Comece pelo começo
@@ -199,7 +190,7 @@
             <input class="botao-perguntas" onclick="formatarPerguntas(this)" type="button" value="Prosseguir pra criar perguntas">
         </div>
 
-        <div class="criar-perguntas escondido">
+        <div class="criar-perguntas">
             <div class="texto">
                 <strong>
                     Crie suas perguntas
