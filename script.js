@@ -2,14 +2,38 @@ const tela1 = document.querySelector(".conteudo-tela1")
 const tela2 = document.querySelector(".conteudo-tela2")
 const tela3 = document.querySelector(".conteudo-tela3")
 const modeloQuizz = {title:"", image:"", question:[], level:[]};
-let perguntas = [];
+
+const promessa = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes")
+promessa.then(captarQuizzes)
+promessa.catch()
+
+let quizzes
 let respostaEscolhida;
 let respostaCerta;
 let respostasErradas;
 let tentativas = 0;
 let acertos = 0;
+let porcentagem = 0;
 
-let teste;
+
+function captarQuizzes(resposta){
+    const dados = resposta.data
+    quizzes = [dados]
+    popularQuizzes()
+}
+
+function popularQuizzes(){
+    const ul = document.querySelector(".ul-todos-quizzes")
+    quizzes[0].forEach(li => {
+        ul.innerHTML += `
+            <li onclick="carregarQuizz(${li.id})">
+                <img src="${li.image}" alt="">
+                <div class="titulo-il-quizzes">
+                    ${li.title}
+                </div>
+            </li>`
+    });
+}
 
 function acessarQuizz(){
     tela1.classList.toggle("escondido")
@@ -21,12 +45,73 @@ function criarQuizz(){
     tela3.classList.toggle("escondido")
 }
 
+function carregarQuizz(id){
+    const promessa = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${id}`)
+    promessa.then(paginaQuizz)
+    promessa.catch()
+}
+
+function paginaQuizz(resposta){
+    tentativas = 0;
+    acertos = 0;
+    porcentagem = 0;
+    const dados = resposta.data
+    const pagina = document.querySelector(".conteudo-tela2")
+    
+    pagina.innerHTML = `
+        <div class="topo-tela2">
+            <img src="${dados.image}" alt="">
+            <div class="titulo-quizzes-tela2">
+                ${dados.title}
+            </div>
+        </div>
+        <div class="perguntas-quizz">
+        </div>`
+
+    const perguntas = document.querySelector(".perguntas-quizz")
+    dados.questions.forEach(pergunta => {
+        perguntas.innerHTML += `
+            <div class="pergunta-quizz">
+                <div class="titulo-quizz-tela2" style="background-color:${pergunta.color};">
+                    <span>${pergunta.title}</span> 
+                </div>
+                <div class="alternativas-respostas">
+                </div>
+            </div>`
+        const respostas = document.querySelectorAll(".alternativas-respostas")
+        pergunta.answers.forEach(resposta => {
+            respostas[respostas.length - 1].innerHTML += `
+                    <div class="alternativa" onclick="escolherResposta(this)" isCorrectAnswer="${resposta.isCorrectAnswer}">
+                        <img src="${resposta.image}" alt="">
+                        <span class="resposta">${resposta.text}</span> 
+                    </div>`
+        });
+    });
+
+    perguntas.innerHTML += `
+    <div class="resultado-acertos escondido">
+        <div class="titulo-acertos">
+            <span>${porcentagem}% de acerto: ${dados.levels[0].title}</span> 
+        </div>
+        <div class="imagemEDescricaoAcerto">
+            <img src="${dados.levels[0].image}" alt="">
+            <span class="descricao-acerto">
+                ${dados.levels[0].text}
+            </span>
+        </div>
+    </div>
+    <div class="finalDoQuizz escondido">
+    <button class="reiniciarQuizz" onclick="">Reiniciar Quizz</button>
+        <button class="voltarHome" onclick="acessarQuizz()">Voltar pra home</button>
+    </div>
+    `
+    acessarQuizz()
+}
+
 function escolherResposta(ele){
-    teste = ele.nextElementSibling
     if (ele.classList.contains("esbranquicado") || ele === respostaEscolhida){
         return
     }
-
     const todasAlternativas = Array.from(ele.parentNode.children) 
     todasAlternativas.forEach(alt => {
         alt.classList.add("esbranquicado")
@@ -35,7 +120,6 @@ function escolherResposta(ele){
     respostaEscolhida = ele
     correcao(todasAlternativas)
     setTimeout(scrollar, 2000)
-    
 }
 
 function correcao(todasAlternativas){
@@ -52,7 +136,7 @@ function correcao(todasAlternativas){
 }
 
 function comparaResposta(alternativa){
-    if(alternativa === teste){
+    if(alternativa.getAttribute("isCorrectAnswer") === "true"){
         respostaCerta.push(alternativa)
     } else {
         respostasErradas.push(alternativa)
@@ -63,7 +147,18 @@ function scrollar(){
     const pergunta = document.querySelectorAll(".pergunta-quizz")
     if(tentativas < pergunta.length){
         pergunta[tentativas].scrollIntoView({block: "center", behavior: "smooth"})
+    } else{
+        fimQuizz()
     }
+}
+
+function fimQuizz(){
+    porcentagem = (acertos/tentativas)*100;
+    const resultado = document.querySelector(".resultado-acertos")
+    const botoesFinalQuizz = document.querySelector(".finalDoQuizz")
+    resultado.classList.toggle("escondido")
+    botoesFinalQuizz.classList.toggle("escondido")
+    resultado.scrollIntoView({block: "center", behavior: "smooth"})
 }
 
 function abrirNivel(elemento){

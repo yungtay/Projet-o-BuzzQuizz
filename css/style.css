@@ -365,14 +365,27 @@ input:invalid {
     align-items: center;
 }
 
-.pergunta-quizz{
+.pergunta-quizz, .resultado-acertos{
     height: 640px;
 
     padding: 28px 35px 35px 35px;
-    margin: 42px 0 0 0 ;
+    margin-top: 42px;
 
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.resultado-acertos{
+    padding: 18px 18px 22px 18px
+}
+
+.resultado-acertos img{
+    height: 273px;
+    width: 364px;
+
+    display: block;
+
+    margin-right: 21px;
 }
 
 .titulo-quizz-tela2{
@@ -388,7 +401,7 @@ input:invalid {
     background-color: blue;
 }
 
-.titulo-quizz-tela2 span{
+.titulo-quizz-tela2 span, .titulo-acertos span{
     font-weight: 700;
     color: white;
     font-family: 'Roboto', sans-serif;
@@ -427,6 +440,53 @@ input:invalid {
     font-weight: 700;
 }
 
+.imagemEDescricaoAcerto{
+    display:flex
+}
+
+.titulo-acertos{
+    width:727px;
+    height: 138px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    background-color: blue;
+}
+
+.descricao-acerto{
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 25px;
+    color: #484848;
+}
+
+.reiniciarQuizz, .voltarHome{
+    width: 260px;
+    height: 52px;
+    display: block;
+
+    border: 0 none;
+    border-radius: 15px;
+    background: #EC362D;
+
+    color: #FFF5F4;
+    font-size: 21px;
+
+    margin-top: 57px;
+}
+
+.voltarHome{
+    margin-top: 8px;
+    background: #fafafa;
+
+    color: #818181;
+    margin-bottom: 80px;
+}
+
 .escondido{
     display: none;
 }
@@ -437,13 +497,10 @@ input:invalid {
 
 .correto{
     color: #009C22;
-
-
 }
 
 .errado{
     color: #FF0B0B;
-
 }
 
 @media(max-width: 1100px){
@@ -490,7 +547,7 @@ input:invalid {
         padding: 0;
     }
 
-    .pergunta-quizz{
+    .pergunta-quizz, .resultado-acertos{
         width: 375px;
         display: flex;
 
@@ -500,7 +557,6 @@ input:invalid {
 
         padding:18px;
         margin: 24px 0 0 0;
-
     }
 
     .titulo-quizz-tela2{
@@ -520,6 +576,32 @@ input:invalid {
 
     .alternativas-respostas{
         width: 100%;
+    }
+
+    .resultado-acertos img{
+        height: 255px;
+        width: 340px;
+    
+        display: block;
+    
+        margin: 0 0 9px 0;
+    }
+
+    .imagemEDescricaoAcerto{
+        display:initial
+    }
+
+    .titulo-acertos{
+        width:340px;
+        height: 99px;
+
+        margin-bottom: 9px;
+    
+    }
+
+    .descricao-acerto{
+        font-size: 17px;
+        line-height: 20px;
     }
 
     .conteudo-tela3{
