@@ -528,7 +528,7 @@ function abrirNivel(elemento){
 
 function formatarQuizz(elemento) {
     const todosOsNiveis = Array.from(elemento.parentNode.querySelectorAll(".perguntas"));
-    let niveis = {title: "", image: "", text: "", minValue: 0};
+    let niveis = {title: "", image: "", text: "", minValue: Number(-2) };
     let autorizado = true;
 
     for (let i = 0; i < modeloQuizz.levels.length; i++) {
@@ -536,10 +536,28 @@ function formatarQuizz(elemento) {
         if(todosOsNiveis[i].querySelector(".resposta-nivel input:first-child").value.length > 9){
             niveis.title = todosOsNiveis[i].querySelector(".resposta-nivel input:first-child").value;
         }else{
-            //alert("Título do Nível " + (i+1) + " inválido");
+            //alert("Título do Nível " + (i+1) + " é inválido");
             console.log("Título do Nível " + (i+1) + " inválido");
             autorizado = false;
             nivelAutorizado = false;
+        }
+        
+        if(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value >= 0 && todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value <= 100){
+            niveis.minValue = todosOsNiveis[i].querySelector(".resposta-nivel input:first-child").value;
+        }else{
+            //alert("Valor do nível " + (i+1) + " é inválido");
+            console.log("Valor do Nível " + (i+1) + " inválido");
+            autorizado = false;
+            nivelAutorizado = false;    
+        }
+
+        if(testeUrl(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(3)").value)){
+            niveis.image = todosOsNiveis[i].querySelector(".resposta-nivel input:first-child").value;
+        }else{
+            //alert("Imagem do nível " + (i+1) + " é inválido");
+            console.log("Imagem do Nível " + (i+1) + " é inválida");
+            autorizado = false;
+            nivelAutorizado = false;    
         }
     }
 
