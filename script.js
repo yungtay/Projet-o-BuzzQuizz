@@ -343,7 +343,7 @@ function abrirPergunta(elemento){
 
 function formatarRespostas(elemento){
     const todasAsPerguntas = Array.from(elemento.parentNode.querySelectorAll('.perguntas'));
-    const perguntas = {title: "", color: "", answers: []};
+    let perguntas = {title: "", color: "", answers: []};
     let respostas = {text: "", image: "", isCorrectAnswer: Boolean};
 
     for (let i = 0; i < todasAsPerguntas.length; i++) {
@@ -357,7 +357,7 @@ function formatarRespostas(elemento){
         }
 
         if(/* FAZER TESTE testeHexadecimal(perguntaPrincipal.querySelector("input:last-child").value)*/ true){
-            perguntas.title = perguntaPrincipal.querySelector("input:last-child").value;
+            perguntas.color = perguntaPrincipal.querySelector("input:last-child").value;
         }else{
             //alert("Cor de fundo da pergunta " + (i+1) + " não aceito");
             console.log("Cor de fundo da pergunta " + (i+1) + " não aceito");
@@ -389,13 +389,26 @@ function formatarRespostas(elemento){
             console.log("Primeira resposta errada da pergunta " + (i+1) + " não aceita");
         }
 
+        const segundaRespostaErrada = todasAsPerguntas[i].querySelector(".segunda-resposta-incorreta");
+
+        if(segundaRespostaErrada.querySelector("input:first-child").value !== null || segundaRespostaErrada.querySelector("input:last-child").value !== null){
+            if(segundaRespostaErrada.querySelector("input:first-child").value !== null && segundaRespostaErrada.querySelector("input:last-child").value !== null){
+                respostas.text = segundaRespostaErrada.querySelector("input:first-child").value;
+                respostas.image = segundaRespostaErrada.querySelector("input:last-child").value;
+                respostas.isCorrectAnswer = false;
+                perguntas.answers.push(respostas);
+                respostas = {text: "", image: "", isCorrectAnswer: Boolean};
+            }else{
+                //alert("Segunda resposta errada da pergunta " + (i+1) + " não aceita");
+                console.log("Segunda resposta errada da pergunta " + (i+1) + " não aceita");
+            }
+        }
+        //modeloQuizz.question[i] = perguntas;
         console.log(perguntas);
+        perguntas = {title: "", color: "", answers: []};
 
-        /*const segundaRespostaErrada = todasAsPerguntas[i].querySelector(".segunda-resposta-incorreta");
-        console.log(segundaRespostaErrada.querySelector("input:first-child").value);
-        console.log(segundaRespostaErrada.querySelector("input:last-child").value);
 
-        const terceiraRespostaErrada = todasAsPerguntas[i].querySelector(".terceira-resposta-incorreta");
+        /* const terceiraRespostaErrada = todasAsPerguntas[i].querySelector(".terceira-resposta-incorreta");
         console.log(terceiraRespostaErrada.querySelector("input:first-child").value);
         console.log(terceiraRespostaErrada.querySelector("input:last-child").value);*/
     }
