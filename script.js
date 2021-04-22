@@ -214,8 +214,6 @@ function formatarPerguntas(elemento){
         pai.querySelector("input:nth-child(3)").value = "";
         pai.querySelector("input:last-child").value = "";
     }
-
-    console.log(modeloQuizz);
 }
 
 function popularPerguntas(){
@@ -309,12 +307,61 @@ function abrirPergunta(elemento){
 
 function formatarRespostas(elemento){
     const todasAsPerguntas = Array.from(elemento.parentNode.querySelectorAll('.perguntas'));
-    const 
+    const perguntas = {title: "", color: "", answers: []};
+    let respostas = {text: "", image: "", isCorrectAnswer: Boolean};
 
     for (let i = 0; i < todasAsPerguntas.length; i++) {
         const perguntaPrincipal = todasAsPerguntas[i].querySelector(".pergunta-criar-quizz");
-        console.log(perguntaPrincipal.querySelector("input:first-child").value);
-        console.log(perguntaPrincipal.querySelector("input:last-child").value);
+
+        if(perguntaPrincipal.querySelector("input:first-child").value.length > 1/*9*/){
+            perguntas.title = perguntaPrincipal.querySelector("input:first-child").value;
+        }else{
+            //alert("Título da pergunta " + (i+1) + " não aceito");
+            console.log("Título da pergunta " + (i+1) + " não aceito");
+        }
+
+        if(/* FAZER TESTE testeHexadecimal(perguntaPrincipal.querySelector("input:last-child").value)*/ true){
+            perguntas.title = perguntaPrincipal.querySelector("input:last-child").value;
+        }else{
+            //alert("Cor de fundo da pergunta " + (i+1) + " não aceito");
+            console.log("Cor de fundo da pergunta " + (i+1) + " não aceito");
+        }
+
+        const respostaPrincipal = todasAsPerguntas[i].querySelector(".resposta-criar-quizz");
+
+        if(respostaPrincipal.querySelector("input:first-child").value !== "" /*&& testeURL(respostaPrincipal.querySelector("input:last-child").value)*/){
+            respostas.text = respostaPrincipal.querySelector("input:first-child").value;
+            respostas.image = respostaPrincipal.querySelector("input:last-child").value;
+            respostas.isCorrectAnswer = true;
+            perguntas.answers.push(respostas);
+            respostas = {text: "", image: "", isCorrectAnswer: Boolean};
+        }else{
+            //alert("Resposta correta não aceita");
+            console.log("Resposta correta não aceita");
+        }
+
+        const primeiraRespostaErrada = todasAsPerguntas[i].querySelector(".primeira-resposta-incorreta");
+
+        if(primeiraRespostaErrada.querySelector("input:first-child").value !== "" /*&& testeURL(primeiraRespostaErrada.querySelector("input:last-child").value)*/){
+            respostas.text = primeiraRespostaErrada.querySelector("input:first-child").value;
+            respostas.image = primeiraRespostaErrada.querySelector("input:last-child").value;
+            respostas.isCorrectAnswer = false;
+            perguntas.answers.push(respostas);
+            respostas = {text: "", image: "", isCorrectAnswer: Boolean};
+        }else{
+            //alert("Primeira resposta errada da pergunta " + (i+1) + " não aceita");
+            console.log("Primeira resposta errada da pergunta " + (i+1) + " não aceita");
+        }
+
+        console.log(perguntas);
+
+        /*const segundaRespostaErrada = todasAsPerguntas[i].querySelector(".segunda-resposta-incorreta");
+        console.log(segundaRespostaErrada.querySelector("input:first-child").value);
+        console.log(segundaRespostaErrada.querySelector("input:last-child").value);
+
+        const terceiraRespostaErrada = todasAsPerguntas[i].querySelector(".terceira-resposta-incorreta");
+        console.log(terceiraRespostaErrada.querySelector("input:first-child").value);
+        console.log(terceiraRespostaErrada.querySelector("input:last-child").value);*/
     }
 }
 
