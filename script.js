@@ -222,7 +222,7 @@ function nivelAtingido(porcentagem){
 
 }
 
-function formatarPerguntas(elemento){
+function verificandoPerguntas(elemento){
     const pai = elemento.previousElementSibling;
     const lista = pai.querySelectorAll("input");
 
@@ -465,8 +465,6 @@ function formatarRespostas(elemento){
             }
         }
 
-        console.log(pushAutorizado);
-
         if(pushAutorizado){
             modeloQuizz.questions[i] = perguntas;
             console.log(modeloQuizz);
@@ -475,10 +473,7 @@ function formatarRespostas(elemento){
           
     }
 
-    console.log(autorizado);
-
     if(autorizado){
-        popularPerguntas();
         popularNiveis();
     }
 }
@@ -529,7 +524,7 @@ function popularNiveis(){
     }
 
     mostrarTela.innerHTML += `
-        <input class="botao-perguntas" onclick="formatarQuizz(this)" type="button" value="Finalizar quizz">
+        <input class="botao-perguntas" onclick="validarNivel(this)" type="button" value="Finalizar quizz">
     `;
 }
 
@@ -550,11 +545,15 @@ function abrirNivel(elemento){
     }  
 }
 
-function formatarQuizz(elemento) {
+function validarNivel(elemento) {
     const todosOsNiveis = Array.from(elemento.parentNode.querySelectorAll(".perguntas"));
-    let niveis = {title: "", image: "", text: "", minValue: Number(-2) };
+    let niveis = {title: "", image: "", text: "", minValue: "" };
     let autorizado = true;
     let possuiZero = false;
+    function receberFalso() {
+        autorizado = false;
+        nivelAutorizado = false;
+    }
 
     for (let i = 0; i < modeloQuizz.levels.length; i++) {
         let nivelAutorizado = true;
@@ -563,8 +562,7 @@ function formatarQuizz(elemento) {
         }else{
             //alert("Título do Nível " + (i+1) + " é inválido");
             console.log("Título do Nível " + (i+1) + " inválido");
-            autorizado = false;
-            nivelAutorizado = false;
+            receberFalso();
         }
         
         if(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value >= 0 && todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value <= 100){
@@ -575,8 +573,7 @@ function formatarQuizz(elemento) {
         }else{
             //alert("Valor do nível " + (i+1) + " é inválido");
             console.log("Valor do Nível " + (i+1) + " inválido");
-            autorizado = false;
-            nivelAutorizado = false;    
+            receberFalso();   
         }
 
         if(testeUrl(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(3)").value)){
@@ -584,8 +581,7 @@ function formatarQuizz(elemento) {
         }else{
             //alert("Imagem do nível " + (i+1) + " é inválido");
             console.log("Imagem do Nível " + (i+1) + " é inválida");
-            autorizado = false;
-            nivelAutorizado = false;    
+            receberFalso();   
         }
 
         if (todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(4)").value === "") {
@@ -594,8 +590,7 @@ function formatarQuizz(elemento) {
             }else{
                 //alert("Descrição do nível " + (i+1) + " é inválido");
                 console.log("Descrição do Nível " + (i+1) + " é inválida");
-                autorizado = false;
-                nivelAutorizado = false; 
+                receberFalso();
             }
             
         }else{
@@ -604,20 +599,30 @@ function formatarQuizz(elemento) {
             }else{
                 //alert("Descrição do nível " + (i+1) + " é inválido");
                 console.log("Descrição do Nível " + (i+1) + " é inválida");
-                autorizado = false;
-                nivelAutorizado = false; 
+                receberFalso(); 
             }
         }
 
         if(nivelAutorizado){
             modeloQuizz.levels[i] = niveis;
-            niveis = {title: "", image: "", text: "", minValue: Number(-2) };
+            niveis = {title: "", image: "", text: "", minValue: "" };
         }
     }
 
     if (autorizado) {
-        console.log(modeloQuizz);
+        const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes", modeloQuizz);
+        promessa.then(deuBom);
+        promessa.catch(deuRuim);
     }
+
+}
+
+function deuRuim(valor){
+    console.log(valor.response);
+}
+
+function deuBom(valor){
+    console.log(valor);
 
 }
 
