@@ -1,9 +1,11 @@
 const tela1 = document.querySelector(".conteudo-tela1")
 const tela2 = document.querySelector(".conteudo-tela2")
 const tela3 = document.querySelector(".conteudo-tela3")
+const carregar = document.querySelector(".tela-carregar")
 const modeloQuizz = {title:"", image:"", questions:[], levels:[]};
 
 const promessa = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes")
+carregar.classList.toggle("escondido")
 promessa.then(captarQuizzes)
 promessa.catch()
 
@@ -33,10 +35,10 @@ function popularQuizzes(){
     const ulTodosQuizzes = document.querySelector(".ul-todos-quizzes")
     const ulSeusQuizzes = document.querySelector(".ul-seus-quizzes")
     const criarQuizz = document.querySelector(".criar-quizzes")
+    
 
     quizzes[0].forEach(li => {
-        console.log(li.id)
-        if(idQuizzesSeus.includes(li.id)){
+        if( idQuizzesSeus !== null && idQuizzesSeus.includes(li.id)){
             ulSeusQuizzes.parentElement.classList.remove("escondido")
             criarQuizz.classList.add("escondido")
             ulSeusQuizzes.innerHTML += `
@@ -56,6 +58,7 @@ function popularQuizzes(){
             </li>`
         }
     });
+    carregar.classList.toggle("escondido")
 }
 
 function acessarQuizz(){
@@ -74,6 +77,7 @@ function criarQuizz(){
 
 function carregarQuizz(id){
     const promessa = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${id}`)
+    carregar.classList.toggle("escondido")
     promessa.then(paginaQuizz)
     promessa.catch()
 }
@@ -118,7 +122,7 @@ function paginaQuizz(resposta){
     if(tela2.classList.contains("escondido")){
         acessarQuizz()
     }
-    
+    carregar.classList.toggle("escondido")
 }
 
 function escolherResposta(ele){
