@@ -16,9 +16,6 @@ let acertos = 0;
 let porcentagem = 0;
 let flagFimQuizz;
 
-let idQuizzesSeus = localStorage.getItem("ids");
-idQuizzesSeus = JSON.parse(idQuizzesSeus)
-
 chamarDados();
 function chamarDados() {
     const promessa = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes")
@@ -38,8 +35,11 @@ function popularQuizzes(){
     const ulTodosQuizzes = document.querySelector(".ul-todos-quizzes")
     const ulSeusQuizzes = document.querySelector(".ul-seus-quizzes")
     const criarQuizz = document.querySelector(".criar-quizzes")
+    let idQuizzesSeus = localStorage.getItem("ids");
+    idQuizzesSeus = JSON.parse(idQuizzesSeus)
     
-
+    ulTodosQuizzes.innerHTML = ""
+    ulSeusQuizzes.innerHTML = ""
     quizzes[0].forEach(li => {
         if( idQuizzesSeus !== null && idQuizzesSeus.includes(li.id)){
             ulSeusQuizzes.parentElement.classList.remove("escondido")
@@ -348,12 +348,18 @@ function abrirElemento(elemento){
     const elementoEscondido = elemento.nextElementSibling;
     const esconderElementoAberto = pai.querySelector(".pergunta-fechada.escondido");
 
+    console.log(elemento)
+    console.log(elementoEscondido)
+    console.log(textoReferencia)
+
     if(pai.querySelector(".pergunta-fechada.escondido") !== null){
         esconder(elemento, elementoEscondido);
         esconder(esconderElementoAberto.nextElementSibling, esconderElementoAberto);
     }else{
         esconder(elemento, elementoEscondido);
     }
+
+    elementoEscondido.scrollIntoView();
 }
 
 function verificandoRespostas(elemento){
