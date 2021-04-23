@@ -354,6 +354,8 @@ function abrirElemento(elemento){
     }else{
         esconder(elemento, elementoEscondido);
     }
+
+
 }
 
 function verificandoRespostas(elemento){
