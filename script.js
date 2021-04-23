@@ -122,7 +122,7 @@ function paginaQuizz(resposta){
     if(tela2.classList.contains("escondido")){
         acessarQuizz()
     }
-    carregar.classList.toggle("escondido")
+    carregar.classList.add("escondido")
 }
 
 function escolherResposta(ele){
@@ -204,7 +204,7 @@ function reiniciar(){
         left: 0,
         behavior: 'smooth'
      });
-    paginaQuizz(dadosQuizzAtual)
+     paginaQuizz(dadosQuizzAtual)
 
 }
 
