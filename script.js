@@ -16,7 +16,8 @@ let acertos = 0;
 let porcentagem = 0;
 let flagFimQuizz;
 
-idQuizzesSeus = localStorage.getItem("ids");
+let idQuizzesSeus = localStorage.getItem("ids");
+idQuizzesSeus = JSON.parse(idQuizzesSeus)
 
 chamarDados();
 function chamarDados() {
@@ -75,6 +76,7 @@ function acessarQuizz(){
 function criarQuizz(){
     tela1.classList.toggle("escondido")
     tela3.classList.toggle("escondido")
+    
 }
 
 function carregarQuizz(id){
@@ -113,7 +115,7 @@ function paginaQuizz(resposta){
                 </div>
             </div>`
         const respostas = document.querySelectorAll(".alternativas-respostas")
-        pergunta.answers.sort(aleatorio).forEach(resposta => {
+        pergunta.answers.sort(p => Math.random() - 0.5).forEach(resposta => {
             respostas[respostas.length - 1].innerHTML += `
                     <div class="alternativa" onclick="escolherResposta(this)" isCorrectAnswer="${resposta.isCorrectAnswer}">
                         <img src="${resposta.image}" alt="">
@@ -217,7 +219,7 @@ function nivelAtingido(porcentagem){
         dadosAgrupados.push(element["minValue"])
         dadosAgrupadosOriginal.push(element["minValue"])
     });
-    dadosAgrupados.sort(numeroDescrescentes)
+    dadosAgrupados.sort((a,b) => b - 0)
     const nivel = dadosAgrupados.find(element => element <= porcentagem)
     return dadosAgrupadosOriginal.indexOf(nivel)
 
@@ -521,7 +523,7 @@ function validarNivel(elemento) {
         }
         
         if(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value >= 0 && todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value <= 100){
-            niveis.minValue = pasrseInt(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value);
+            niveis.minValue = parseInt(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value);
             if(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value === 0){
                 possuiZero = true;
             }
@@ -592,7 +594,7 @@ function finalizarQuizz(id){
 
     chamarDados();
     
-    mostraTela.innerHTML = `
+    mostrarTela.innerHTML = `
         <div class="texto">
             <strong>
                 Seu quizz está pronto!
@@ -615,14 +617,6 @@ function paginaPrincipal(){
 
     esconder(tela3,tela1);
     esconder(alterarCriacao,mostrarPassoCriacao);
-}
-
-function numeroDescrescentes(a, b) {
-    return b - a;
-}
-
-function aleatorio() { 
-	return Math.random() - 0.5; 
 }
 
 function testeHexadecimal(hexa){
@@ -648,7 +642,7 @@ function testeUrl(url){
 }
 
 function esconder(adicionar, remover) {
-    adicioninar.classList.add("escondido");
+    adicionar.classList.add("escondido");
     remover.classList.remove("escondido");
 }
 
