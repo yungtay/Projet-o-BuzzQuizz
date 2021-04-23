@@ -19,6 +19,9 @@ let acertos = 0;
 let porcentagem = 0;
 let flagFimQuizz;
 
+idQuizzesSeus = localStorage.getItem("ids");
+
+
 
 function captarQuizzes(resposta){
     const dados = resposta.data
@@ -27,15 +30,31 @@ function captarQuizzes(resposta){
 }
 
 function popularQuizzes(){
-    const ul = document.querySelector(".ul-todos-quizzes")
+    const ulTodosQuizzes = document.querySelector(".ul-todos-quizzes")
+    const ulSeusQuizzes = document.querySelector(".ul-seus-quizzes")
+    const criarQuizz = document.querySelector(".criar-quizzes")
+
     quizzes[0].forEach(li => {
-        ul.innerHTML += `
+        console.log(li.id)
+        if(idQuizzesSeus.includes(li.id)){
+            ulSeusQuizzes.parentElement.classList.remove("escondido")
+            criarQuizz.classList.add("escondido")
+            ulSeusQuizzes.innerHTML += `
             <li onclick="carregarQuizz(${li.id})">
                 <img src="${li.image}" alt="">
                 <div class="titulo-il-quizzes">
                     ${li.title}
                 </div>
             </li>`
+        } else {
+            ulTodosQuizzes.innerHTML += `
+            <li onclick="carregarQuizz(${li.id})">
+                <img src="${li.image}" alt="">
+                <div class="titulo-il-quizzes">
+                    ${li.title}
+                </div>
+            </li>`
+        }
     });
 }
 
@@ -645,5 +664,16 @@ function testeUrl(url){
     '(\\?[;&a-z\\d%_.~+=-]*)?'+
     '(\\#[-a-z\\d_]*)?$','i');
   return !!padraoUrl.test(url);
+}
+
+function adicionaLocalStorage(id){
+    let idsDeserializados = [];
+    const idsSerializadosEntrada = localStorage.getItem("ids")
+    if(idsSerializadosEntrada !== null){
+        idsDeserializados = JSON.parse(idsSerializadosEntrada);
+    }
+    idsDeserializados.push(id);
+    const idsSerializadosSaida = JSON.stringify(idsDeserializados);
+    localStorage.setItem("ids", idsSerializadosSaida)
 }
 

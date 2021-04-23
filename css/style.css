@@ -95,13 +95,18 @@ body{
 .ul-seus-quizzes, .ul-todos-quizzes{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+
 }
 
 li{
     margin-bottom: 12px;
+    margin-right: 1.0272%;
 
     position: relative;
+}
+
+li:nth-child(3n){
+    margin-right: 0;
 }
 
 li div{
