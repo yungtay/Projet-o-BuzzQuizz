@@ -65,8 +65,13 @@ function popularQuizzes(){
 }
 
 function acessarQuizz(){
-    tela1.classList.toggle("escondido")
-    tela2.classList.toggle("escondido")
+    if(tela3.classList.contains("escondido")){
+        tela1.classList.toggle("escondido")
+        tela2.classList.toggle("escondido")
+    } else {
+        tela3.classList.add("escondido")
+        tela2.classList.remove("escondido")
+    }
     window.scroll({
         top: 0,
         left: 0,
@@ -119,7 +124,7 @@ function paginaQuizz(resposta){
             respostas[respostas.length - 1].innerHTML += `
                     <div class="alternativa" onclick="escolherResposta(this)" isCorrectAnswer="${resposta.isCorrectAnswer}">
                         <img src="${resposta.image}" alt="">
-                        <span class="resposta">${resposta.text}</span> 
+                        <div class="resposta">${resposta.text}</div> 
                     </div>`
         });
     });
@@ -523,8 +528,8 @@ function validarNivel(elemento) {
         }
         
         if(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value >= 0 && todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value <= 100){
-            niveis.minValue = parseInt(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value);
-            if(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value === 0){
+            niveis.minValue = todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value;
+            if(todosOsNiveis[i].querySelector(".resposta-nivel input:nth-child(2)").value === "0"){
                 possuiZero = true;
             }
         }else{
@@ -560,9 +565,13 @@ function validarNivel(elemento) {
             modeloQuizz.levels[i] = niveis;
             niveis = {title: "", image: "", text: "", minValue: "" };
         }
+
+        if(!possuiZero){
+            console.log("Precisa ter algum nível com minimo 0")
+        }
     }
 
-    if (autorizado) {
+    if (autorizado === true && possuiZero === true) {
         const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes", modeloQuizz);
         promessa.then(adicionaLocalStorage);
         promessa.catch(deuRuim);

@@ -1,6 +1,7 @@
 body{
     font-family: 'Roboto', sans-serif;
     background-color: #fafafa;
+
 }
 
 .topo{
@@ -9,7 +10,7 @@ body{
 
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     z-index: 10;
 
     background-color: #EC362D;
@@ -29,7 +30,7 @@ body{
 
 .conteudo-tela1{
     margin-top: 69px;   
-    padding: 77px calc(calc(100vw - 1065px)/2) 30px calc(calc(100vw - 1051px)/2);
+    padding: 77px calc(calc(100vw - 1060px)/2) 30px calc(calc(100vw - 1060px)/2);
 }
 
 .criar-quizzes{
@@ -122,6 +123,7 @@ li div{
     padding: 17px;
 
     display:flex;
+    overflow-x: hidden;
     align-items: flex-end;
 
     color: white;
@@ -443,6 +445,9 @@ input:invalid {
 .resposta{
     font-size: 16px;
     font-weight: 700;
+    width: 330px;
+    overflow-x: hidden;
+
 }
 
 .imagemEDescricaoAcerto{
@@ -681,6 +686,10 @@ input:invalid {
 
     .resposta-nivel textarea{
         display: block;
+    }
+
+    .resposta{
+        width: 164px;
     }
 
 }
