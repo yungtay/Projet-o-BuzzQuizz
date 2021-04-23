@@ -4,11 +4,6 @@ const tela3 = document.querySelector(".conteudo-tela3")
 const carregar = document.querySelector(".tela-carregar")
 const modeloQuizz = {title:"", image:"", questions:[], levels:[]};
 
-const promessa = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes")
-carregar.classList.toggle("escondido")
-promessa.then(captarQuizzes)
-promessa.catch()
-
 let quizzes
 let respostaEscolhida;
 let respostaCerta;
@@ -23,7 +18,13 @@ let flagFimQuizz;
 
 idQuizzesSeus = localStorage.getItem("ids");
 
-
+chamarDados();
+function chamarDados() {
+    const promessa = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes")
+    carregar.classList.toggle("escondido")
+    promessa.then(captarQuizzes)
+    promessa.catch()
+}
 
 function captarQuizzes(resposta){
     const dados = resposta.data
@@ -259,8 +260,8 @@ function verificandoPerguntas(elemento){
 
 
     if(modeloQuizz.title !== "" && modeloQuizz.image !== "" && modeloQuizz.questions.length > 2 && modeloQuizz.levels.length > 1){
-       // popularPerguntas();
-        popularNiveis();
+        popularPerguntas();
+        //popularNiveis();
         pai.querySelector("input:first-child").value = "";
         pai.querySelector("input:nth-child(2)").value = "";
         pai.querySelector("input:nth-child(3)").value = "";
@@ -271,8 +272,7 @@ function verificandoPerguntas(elemento){
 function popularPerguntas(){
     const esconderTela = document.querySelector(".comeca-pelo-comeco");
     const mostrarTela = document.querySelector(".criar-perguntas");
-    esconderTela.classList.add("escondido");
-    mostrarTela.classList.remove("escondido");
+    esconder(esconderTela, mostrarTela);
 
     mostrarTela.innerHTML = `
         <div class="texto">
@@ -342,21 +342,12 @@ function abrirPergunta(elemento){
     const perguntaEscondida = elemento.nextElementSibling;
     const esconderPerguntaAberta = pai.querySelector(".pergunta-fechada.escondido");
 
-    perguntaEscondida.scrollIntoView({block: "start", behavior: "smooth"});
-
     if(pai.querySelector(".pergunta-fechada.escondido") !== null){
-
-        elemento.classList.add("escondido");
-        perguntaEscondida.classList.remove("escondido");
-
-        esconderPerguntaAberta.classList.remove("escondido");
-        esconderPerguntaAberta.nextElementSibling.classList.add("escondido");
-
+        esconder(elemento, perguntaEscondida);
+        esconder(esconderPerguntaAberta.nextElementSibling, esconderPerguntaAberta);
     }else{
-
-        elemento.classList.add("escondido");
-        perguntaEscondida.classList.remove("escondido");
-    }    
+        esconder(elemento, perguntaEscondida);
+    }
 }
 
 function formatarRespostas(elemento){
@@ -396,8 +387,8 @@ function formatarRespostas(elemento){
             perguntas.answers.push(respostas);
             respostas = {text: "", image: "", isCorrectAnswer: Boolean};
         }else{
-            //alert("Resposta correta da pergunta " + [i] + " não aceita");
-            console.log("Resposta correta da pergunta " + [i] + " não aceita");
+            //alert("Resposta correta da pergunta " + (i+1) + " não aceita");
+            console.log("Resposta correta da pergunta " + (i+1) + " não aceita");
             autorizado = false;
             pushAutorizado = false;
         }
@@ -467,7 +458,6 @@ function formatarRespostas(elemento){
 
         if(pushAutorizado){
             modeloQuizz.questions[i] = perguntas;
-            console.log(modeloQuizz);
             perguntas = {title: "", color: "", answers: []};  
         }
           
@@ -479,14 +469,9 @@ function formatarRespostas(elemento){
 }
 
 function popularNiveis(){
-
-    const esconderTela1 = document.querySelector(".comeca-pelo-comeco");
-    esconderTela1.classList.add("escondido");
-
     const esconderTela = document.querySelector(".criar-perguntas");
     const mostrarTela = document.querySelector(".escolha-niveis");
-    esconderTela.classList.add("escondido");
-    mostrarTela.classList.remove("escondido");
+    esconder(esconderTela,mostrarTela);
 
     mostrarTela.innerHTML = `
         <div class="texto">
@@ -534,14 +519,10 @@ function abrirNivel(elemento){
     const esconderNivelAberto = pai.querySelector(".pergunta-fechada.escondido");
 
     if (pai.querySelector(".pergunta-fechada.escondido") !== null) {
-        elemento.classList.add("escondido");
-        nivelEscondido.classList.remove("escondido");
-
-        esconderNivelAberto.classList.remove("escondido");
-        esconderNivelAberto.nextElementSibling.classList.add("escondido");
+        esconder(elemento, nivelEscondido);
+        esconder(esconderNivelAberto.nextElementSibling, esconderNivelAberto);
     }else{
-        elemento.classList.add("escondido");
-        nivelEscondido.classList.remove("escondido");
+        esconder(elemento,nivelEscondido);
     }  
 }
 
@@ -611,38 +592,59 @@ function validarNivel(elemento) {
 
     if (autorizado) {
         const promessa = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes", modeloQuizz);
-        promessa.then(deuBom);
+        promessa.then(adicionaLocalStorage);
         promessa.catch(deuRuim);
     }
 
 }
 
+function adicionaLocalStorage(id){
+    let idsDeserializados = [];
+    const idsSerializadosEntrada = localStorage.getItem("ids")
+    if(idsSerializadosEntrada !== null){
+        idsDeserializados = JSON.parse(idsSerializadosEntrada);
+    }
+    idsDeserializados.push(id.data.id);
+    const idsSerializadosSaida = JSON.stringify(idsDeserializados);
+    localStorage.setItem("ids", idsSerializadosSaida)
+
+    finalizarQuizz(id.data.id);
+}
+
 function deuRuim(valor){
-    console.log(valor.response);
+    console.log("Chorou!!");
 }
 
-function deuBom(valor){
-    console.log(valor);
-
-}
-
-
-
-function finalizarQuizz(){
+function finalizarQuizz(id){
     const esconderTela = document.querySelector(".escolha-niveis");
     const mostrarTela = document.querySelector(".quizz-pronto");
-    esconderTela.classList.add("escondido");
-    mostrarTela.classList.remove("escondido");
+    esconder(esconderTela,mostrarTela);
+
+    chamarDados();
+    
+    mostraTela.innerHTML = `
+        <div class="texto">
+            <strong>
+                Seu quizz está pronto!
+            </strong>
+        </div>
+        <div class="previa-quizz" onclick="carregarQuizz(${id})">
+            <img src="${modeloQuizz.image}" alt="">
+            <div class="titulo-previa-quizz">
+                ${modeloQuizz.title}
+            </div>
+        </div>
+        <input class="botao-finalizado" onclick="carregarQuizz(${id})" type="button" value="Acessar Quizz">
+        <input class="botao-voltar-home" onclick="paginaPrincipal()" type="button" value="Voltar pra home">
+    `;
 }
 
 function paginaPrincipal(){
     const alterarCriacao = document.querySelector(".quizz-pronto");
     const mostrarPassoCriacao = document.querySelector(".comeca-pelo-comeco");
-    
-    tela1.classList.remove("escondido");
-    tela3.classList.add("escondido");
-    alterarCriacao.classList.add("escondido");
-    mostrarPassoCriacao.classList.remove("escondido");
+
+    esconder(tela3,tela1);
+    esconder(alterarCriacao,mostrarPassoCriacao);
 }
 
 function numeroDescrescentes(a, b) {
@@ -675,14 +677,8 @@ function testeUrl(url){
   return !!padraoUrl.test(url);
 }
 
-function adicionaLocalStorage(id){
-    let idsDeserializados = [];
-    const idsSerializadosEntrada = localStorage.getItem("ids")
-    if(idsSerializadosEntrada !== null){
-        idsDeserializados = JSON.parse(idsSerializadosEntrada);
-    }
-    idsDeserializados.push(id);
-    const idsSerializadosSaida = JSON.stringify(idsDeserializados);
-    localStorage.setItem("ids", idsSerializadosSaida)
+function esconder(adicionar, remover) {
+    adicioninar.classList.add("escondido");
+    remover.classList.remove("escondido");
 }
 
