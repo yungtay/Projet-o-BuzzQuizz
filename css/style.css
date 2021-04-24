@@ -195,8 +195,10 @@ li div{
     font-size: 19px;
     font-style: italic;
 
-    background-color: #FFFFFF;
+}
 
+.input-invalido{
+    background-color: #FFE9E9;
 }
 
 input:invalid {
