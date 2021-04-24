@@ -26,7 +26,6 @@ function chamarDados() {
 
 function captarQuizzes(resposta){
     const dados = resposta.data
-    console.log(dados);
     quizzes = [dados]
     popularQuizzes()
 }
@@ -233,39 +232,50 @@ function nivelAtingido(porcentagem){
 
 function verificandoPerguntas(elemento){
     const pai = elemento.previousElementSibling;
-    const lista = pai.querySelectorAll("input");
 
     if(pai.querySelector("input:first-child").value.length > 19){
         modeloQuizz.title = pai.querySelector("input:first-child").value;
+        acertoFundo(pai.querySelector("input:first-child"))
     }else{
-        alert("Título não válido");
+        alert("Título não válido")
+        erroFundo(pai.querySelector("input:first-child"))
     }
     
     if(testeUrl(pai.querySelector("input:nth-child(2)").value) &&
         pai.querySelector("input:nth-child(2)").value !== ""){
-
         modeloQuizz.image = pai.querySelector("input:nth-child(2)").value;
+        acertoFundo(pai.querySelector("input:nth-child(2)"))
     }else{
         alert("URL não válida");
+        erroFundo(pai.querySelector("input:nth-child(2)"))
     }
 
     if(pai.querySelector("input:nth-child(3)").value > 2){
         modeloQuizz.questions.length = pai.querySelector("input:nth-child(3)").value;
+        acertoFundo(pai.querySelector("input:nth-child(3)"))
     }else{
         alert("Número de questões não válido");
+        erroFundo(pai.querySelector("input:nth-child(3)"))
     }
 
 
     if(pai.querySelector("input:last-child").value > 1){
         modeloQuizz.levels.length = pai.querySelector("input:last-child").value;
+        acertoFundo(pai.querySelector("input:last-child"))
     }else{
         alert("Número de níveis não válido");
+        erroFundo(pai.querySelector("input:last-child"))
     }
 
 
     if(modeloQuizz.title !== "" && modeloQuizz.image !== "" && modeloQuizz.questions.length > 2 && modeloQuizz.levels.length > 1){
         popularPerguntas();
         zerarValores(pai);
+    }else{
+        modeloQuizz.title = "";
+        modeloQuizz.image = "";
+        modeloQuizz.questions.length = 0;
+        modeloQuizz.levels.length = 0;
     }
 }
 
@@ -373,16 +383,20 @@ function verificandoRespostas(elemento){
 
         if(perguntaPrincipal.querySelector("input:first-child").value.length > 19){
             perguntas.title = perguntaPrincipal.querySelector("input:first-child").value;
+            acertoFundo(perguntaPrincipal.querySelector("input:first-child"));
         }else{
             alert("Título da pergunta " + (i+1) + " não aceito");
             tornarFalso();
+            erroFundo(perguntaPrincipal.querySelector("input:first-child"));
         }
 
         if(testeHexadecimal(perguntaPrincipal.querySelector("input:last-child").value)){
             perguntas.color = perguntaPrincipal.querySelector("input:last-child").value;
+            acertoFundo(perguntaPrincipal.querySelector("input:last-child"));
         }else{
             alert("Cor de fundo da pergunta " + (i+1) + " não aceito");
             tornarFalso();
+            erroFundo(perguntaPrincipal.querySelector("input:last-child"));
         }
 
         const respostaPrincipal = todasAsPerguntas[i].querySelector(".resposta-criar-quizz");
@@ -496,7 +510,7 @@ function popularNiveis(){
                     <input type="text" placeholder="Título do nível" minlength="10">
                     <input type="text" placeholder="% de acerto mínima">
                     <input type="text" placeholder="URL da imagem do nível">
-                    <input type="text" placeholder="Descrição do nível">
+                    <input type="text" minlength="30" placeholder="Descrição do nível">
                     <textarea placeholder="Descrição do nível" minlength="30" cols="30" rows="10"></textarea>
                 </div>
             </div>
@@ -653,5 +667,13 @@ function testeUrl(url){
 function esconder(adicionar, remover) {
     adicionar.classList.add("escondido");
     remover.classList.remove("escondido");
+}
+
+function erroFundo(elemento) {
+    elemento.classList.add("input-invalido");
+}
+
+function acertoFundo(elemento) {
+    elemento.classList.remove("input-invalido");
 }
 
