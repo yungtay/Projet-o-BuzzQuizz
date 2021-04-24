@@ -350,7 +350,6 @@ function abrirElemento(elemento){
 
     console.log(elemento)
     console.log(elementoEscondido)
-    console.log(textoReferencia)
 
     if(pai.querySelector(".pergunta-fechada.escondido") !== null){
         esconder(elemento, elementoEscondido);
@@ -358,8 +357,6 @@ function abrirElemento(elemento){
     }else{
         esconder(elemento, elementoEscondido);
     }
-
-    elementoEscondido.scrollIntoView();
 }
 
 function verificandoRespostas(elemento){
